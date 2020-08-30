@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+User: {{ user.username }}
+{% endblock %}
+
+{% block body %}
+<h1>Page of {{ user.username }}</h1>
+<ul>
+	{% for comment in user.comments %}
+	<li>
+		<div>
+			<h4><a href="{{ url_for('book',book_id=comment.book.id) }}">{{ comment.book.title }}</a></h4>
+			{{ comment.comment }}
+		</div>
+	</li>
+	{% else %}
+	<li>
+		No Comments.
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}

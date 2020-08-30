@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Book Review -Home {{ user.username }}
+{% endblock %}
+
+{% block body %}
+<form action="{{ url_for('out') }}" method="post">
+        <div class="form-group">
+                <button class="btn btn-primary">Log Out</button>
+        </div>
+</form>
+
+<h1>See details about books</h1>
+
+<h3>{{ user.username }}</h3>
+
+<form action="{{ url_for('home',user_id=user.id) }}" method="post">
+        <div class="form-group">
+                <input class="form-control" name="search" placeholder="Search with ISBN, Title or Author">
+        </div>
+
+        <div class="form-group">
+                <button class="btn btn-primary">Search</button>
+        </div>
+</form>
+
+<ul>
+        {% for comment in user.comments %}
+        <li>
+                <div>
+			<h4><a href="{{ url_for('book',book_id=comment.book.id) }}">{{ comment.book.title }}</a></h4>
+                        {{ comment.comment }}
+                </div>
+        </li>
+        {% else %}
+        <li>
+                No Comments.
+        </li>
+        {% endfor %}
+</ul>
+
+
+{% endblock %}
